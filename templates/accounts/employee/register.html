@@ -1,48 +1,127 @@
 <!DOCTYPE html>
+<!-- {% load static %} -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Candidate Registration</title>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+        ::placeholder{
+            color: white;
+        }
+
+        p{
+            color: white;
+        }
+
+        a{
+            color: white;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, #28313B, #485461)
+
+        }
+
+        .box {  
+            width: 500px;
+            padding: 40px;
+            /* position: absolute; */
+            position: relative;
+            top: 10%;
+            left: 30%;
+            background-color: rgba(25, 25, 25, 0.5);
+            text-align: center;
+            transition: 0.25s;
+            margin-top: 20px;
+            border-radius: 100px;       
+        }
+
+        .box input[type="email"],
+        .box input[type="text"],
+        .box input[type="password"] {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #3498db;
+            padding: 10px 10px;
+            width: 250px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s
+        }
+
+        .box h1 {
+            color: white;
+            text-transform: uppercase;
+            font-weight: 500
+        }
+        
+        .text-muted{
+            color: white;
+        }
+
+        .box input[type="email"]:focus,
+        .box input[type="text"]:focus,
+        .box input[type="password"]:focus {
+            width: 300px;
+            border-color: #2ecc71
+        }
+
+        .box input[type="submit"] {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #2ecc71;
+            padding: 14px 40px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer
+        }
+
+        .box input[type="submit"]:hover {
+            background: #2ecc71
+        }
+
+        label{
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            {% if field.name == 'gender' %}
-
-                <div class="form-group">
+    <div class="container">
+        <form action="" method="post" class="box">
+            <h1>Employer / Company Registration</h1>
+            <p class="text-muted">Please enter your details!</p>
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'gender' %}
                     <label for="gender">Gender</label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="male gender"
-                               value="male">
-                        <label class="form-check-label" for="male">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="female"
-                               value="female">
-                        <label class="form-check-label" for="female">Female</label>
-                    </div>
-                </div>
-
-            {% else %}
-
-                <div class="form-group">
-                    <label for="id_{{ field.name }}">{{ field.label }}</label>
-                    <input type="{{ field.field.widget.input_type }}"
-                           class="form-control"
-                           name="{{ field.name }}"
-                           id="id_{{ field.name }}"
-                           placeholder="{{ field.field.widget.attrs.placeholder }}">
-                </div>
-
-            {% endif %}
-        {% endfor %}
-        <div class="text-center">
-            <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-user-md"></i> Register
-            </button>
-        </div>
-    </form>
+                    <input class="form-check-input" type="radio" name="gender" id="male gender" value="male">
+                    <label class="form-check-label" for="male">Male</label>
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                    <label class="form-check-label" for="female">Female</label>
+                {% else %}
+                    <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}" id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+            {% endfor %}
+            <input type="submit" value="Submit">
+            <p>Already Registered ? <a href="{% url 'accounts:login' %}">Login</a></p>
+        </form>
+    </div>
 </body>
 </html>
