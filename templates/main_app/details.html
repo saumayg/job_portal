@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{job.title}}
+    {{job.company_name}}
+
+    
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'main_app:apply-job' job.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="job" value="{{ job.id }}">
+            <input type="submit" class="btn btn-outline-white-primary"
+                value="Apply for this job"/>
+        </form>
+    {% endif %}
+        
+
+{% endblock content %}
