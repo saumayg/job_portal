@@ -32,8 +32,8 @@
                         <li class="nav-item"><a href="{% url 'main_app:jobs' %}" class="nav-link">List of jobs</a></li>
                         <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
                     {% else %}
-                        <li class="nav-item"><a href="#" class="nav-link">Employee</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Employer</a></li>
+                        <!-- <li class="nav-item"><a href="#" class="nav-link">Employee</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Employer</a></li> -->
                         <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link">Login</a></li>
                     {% endif %}
                 </ul>

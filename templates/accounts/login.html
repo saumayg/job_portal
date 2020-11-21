@@ -10,24 +10,38 @@
     <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <style>
-        .body1 {
+        ::placeholder{
+            color: white;
+        }
+
+        p{
+            color: white;
+        }
+
+        a{
+            color: white;
+        }
+
+        body {
             margin: 0;
             padding: 0;
             font-family: sans-serif;
-            background: linear-gradient(to right, #b92b27, #1565c0)
+            background: linear-gradient(to right, #28313B, #485461)
+
         }
 
         .box {  
             width: 500px;
             padding: 40px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            background: #191919;
-            ;
+            /* position: absolute; */
+            position: relative;
+            top: 30%;
+            left: 30%;
+            background-color: rgba(25, 25, 25, 0.5);
             text-align: center;
             transition: 0.25s;
-            margin-top: 100px
+            margin-top: 100px;
+            border-radius: 100px;       
         }
 
         .box input[type="email"],
@@ -50,6 +64,10 @@
             color: white;
             text-transform: uppercase;
             font-weight: 500
+        }
+        
+        .text-muted{
+            color: white;
         }
 
         .box input[type="email"]:focus,
@@ -78,22 +96,20 @@
         }
     </style>
 </head>
-<body class="body1">
+<body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <form action="" method="post" class="box">
-                    <h1>Login</h1>
-                    <p class="text-muted"> Please enter your login and password!</p>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <!-- <label for="id_{{ field.name }}">{{ field.label }}</label> -->   
-                        <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}" id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}">
-                    {% endfor %}
-                    <input type="submit" name="" value="Login">
-                </form>
-            </div>
-        </div>
+        <form action="" method="post" class="box">
+            <h1>Login</h1>
+            <p class="text-muted"> Please enter your login and password!</p>
+            {% csrf_token %}
+            {% for field in form %}
+                <!-- <label for="id_{{ field.name }}">{{ field.label }}</label> -->   
+                <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}" id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endfor %}
+            <input type="submit" name="" value="Login">
+            <p>Don't have an account ?</p>
+            <p>Signup as :   <a href="#">Employer/Company</a>   |   <a href="#">Employee/Candidate</a></p>
+        </form>
     </div>
 </body>
 </html>
