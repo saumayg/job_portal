@@ -27,7 +27,7 @@
                         <li class="nav-item"><a href="#" class="nav-link">Post a new Job</a></li>
                         <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
                     {% elif request.user.is_authenticated and request.user.role == 'employee' %}
-                        <li class="nav-item"><a href="#" class="nav-link">My Applications</a></li>
+                        <li class="nav-item"><a href="{% url 'main_app:applications' %}" class="nav-link">My Applications</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Update Profile</a></li>
                         <li class="nav-item"><a href="{% url 'main_app:jobs' %}" class="nav-link">List of jobs</a></li>
                         <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
