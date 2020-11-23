@@ -26,14 +26,24 @@
             margin: 0;
             padding: 0;
             font-family: sans-serif;
-            background: linear-gradient(to right, #28313B, #485461)
+            background: linear-gradient(to right, #212931, #5d6268);
 
         }
-
+        @keyframes slider{
+            0%{transform:translateX(-1000px)}
+            90%{transform: translateX(10px)}
+            100%{transform:translateX(0px)}
+        }
+        @keyframes opacitier{
+            0%{opacity: 0;}
+            70%{opacity: .8;}
+            100%{opacity: 1;}
+        }
         .box {  
             width: 500px;
             padding: 40px;
             /* position: absolute; */
+            animation:opacitier 7s ease 0s 1 normal;
             position: relative;
             top: 10%;
             left: 30%;
@@ -41,7 +51,7 @@
             text-align: center;
             transition: 0.25s;
             margin-top: 20px;
-            border-radius: 100px;       
+            border-radius: 20px;       
         }
 
         .box input[type="email"],
@@ -52,6 +62,7 @@
             display: block;
             margin: 20px auto;
             text-align: center;
+            animation: slider 5s ease 0s 1 normal;
             border: 2px solid #3498db;
             padding: 10px 10px;
             width: 250px;
@@ -60,7 +71,9 @@
             border-radius: 24px;
             transition: 0.25s
         }
-
+        .box p{
+            color: #71767a;
+        }
         .box h1 {
             color: white;
             text-transform: uppercase;
@@ -92,9 +105,12 @@
             transition: 0.25s;
             cursor: pointer
         }
-
+        .links:hover{
+            transform: scale(1.2);
+        }
         .box input[type="submit"]:hover {
-            background: #2ecc71
+            background: #2ecc71;
+            transform: scale(1.1);
         }
 
         label{
@@ -120,7 +136,7 @@
                 {% endif %}
             {% endfor %}
             <input type="submit" value="Submit">
-            <p>Already Registered ? <a href="{% url 'accounts:login' %}">Login</a></p>
+            <p>Already Registered ? <a class="links" href="{% url 'accounts:login' %}">Login</a></p>
         </form>
     </div>
 </body>

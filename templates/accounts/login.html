@@ -23,25 +23,31 @@
         }
 
         body {
-            margin: 0;
+            padding-left: 100px;
             padding: 0;
             font-family: sans-serif;
-            background: linear-gradient(to right, #28313B, #485461)
-
+            background: linear-gradient(to right, #212931, #5d6268);
+            
         }
-
+        @keyframes opacitier{
+            from{opacity: 0;}
+            to{opacity: 1;}
+        }
         .box {  
             width: 500px;
             padding: 40px;
             /* position: absolute; */
+            /* align-self: center; */
+            /* justify-content: center; */
+            animation:opacitier 7s ease 0s 1 normal;
             position: relative;
             top: 30%;
-            left: 30%;
+            left: 34%;
             background-color: rgba(25, 25, 25, 0.5);
             text-align: center;
             transition: 0.25s;
             margin-top: 100px;
-            border-radius: 100px;       
+            border-radius: 20px;       
         }
 
         .box input[type="email"],
@@ -83,7 +89,7 @@
             margin: 20px auto;
             text-align: center;
             border: 2px solid #2ecc71;
-            padding: 14px 40px;
+            padding: 14px 80px;
             outline: none;
             color: white;
             border-radius: 24px;
@@ -92,7 +98,29 @@
         }
 
         .box input[type="submit"]:hover {
-            background: #2ecc71
+            background: #2ecc71;
+            transform: scale(1.1);
+        }
+        .signup_line{
+            /* padding: 10; */
+            flex: 1;
+            /* border: .4px solid #71767a; */
+            /* border: .4px solid #4ca8e6; */
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 20px;
+            line-height: 30px;
+            transition-duration: 2s;
+            
+        }
+        .box p{
+            color: #71767a;
+        }
+        .signup_line p,a{
+            color: #71767a
+        }
+        .links:hover{
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -107,8 +135,22 @@
                 <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}" id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}">
             {% endfor %}
             <input type="submit" name="" value="Login">
-            <p>Don't have an account ?</p>
-            <p>Signup as :   <a href="{% url 'accounts:employer_register' %}">Employer/Company</a>   |   <a href="{% url 'accounts:employee_register' %}">Employee/Candidate</a>   |   <a href="{%  url 'admin:index' %}">Admin</a></p>
+            <p >Don't have an account ?</p>
+            <div class="signup_line"> 
+                <p>Sign Up As
+                <div style="flex-direction: row;">
+                    <div class='links' > 
+                        <a  href="{% url 'accounts:employer_register' %}">Employer-Company</a> 
+                    </div>
+                    <div class='links' >
+                        <a href="{% url 'accounts:employee_register' %}">Employee-Candidate</a> 
+                    </div> 
+                    <div class='links' > 
+                        <a  href="{%  url 'admin:index' %}">Admin</a>
+                    </div> 
+                </div>
+                </p> 
+            </div>
         </form>
     </div>
 </body>
