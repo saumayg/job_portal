@@ -70,7 +70,7 @@ class ApplyJobView(CreateView):
             return HttpResponseRedirect(reverse_lazy("main_app:home"))
 
     def get_success_url(self):
-        return reverse_lazy("main_app:jobs-detail", kwargs={"id": self.kwargs["job_id"]})
+        return reverse_lazy("main_app:job_detail", kwargs={"id": self.kwargs["job_id"]})
 
     def form_valid(self, form):
         # check if user already applied
@@ -108,10 +108,10 @@ class ApplicantPerJobView(ListView):
 
 
 class JobCreateView(CreateView):
-    template_name = "jobs/create.html"
+    template_name = "main_app/employer/new_job.html"
     form_class = CreateJobForm
     extra_context = {"title": "Post New Job"}
-    success_url = reverse_lazy("jobs:employer-dashboard")
+    success_url = reverse_lazy("main_app:home")
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     def dispatch(self, request, *args, **kwargs):
@@ -164,9 +164,8 @@ def filled(request, job_id=None):
 @method_decorator(user_is_employee, name="dispatch")
 class EmployeeMyJobsListView(ListView):
     model = Applicant
-    template_name = "jobs/employee/my-applications.html"
+    template_name = "main_app/employee/applications.html"
     context_object_name = "applicants"
-    paginate_by = 6
 
     def get_queryset(self):
         self.queryset = (

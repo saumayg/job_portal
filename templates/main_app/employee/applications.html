@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    {% for applicant in applicants %}
+        {{applicant.job.title}}
+    {% endfor %}
+        
+{% endblock content %}

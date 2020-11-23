@@ -1,17 +1,33 @@
 {% extends "base.html" %}
+{% load applied %}
 
 {% block content %}
     {{job.title}}
     {{job.company_name}}
+    {{job.location}}
+    {{job.type}}
+    {{job.category}}
+    {{job.last_date}}
+    {{job.company_name}}
+    {{job.company_description}}
+    {{job.website}}
+    {{job.created_at}}
+    {{job.salary}}
 
     
     {% if request.user.is_authenticated %}
-        <form action="{% url 'main_app:apply-job' job.id %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="job" value="{{ job.id }}">
-            <input type="submit" class="btn btn-outline-white-primary"
-                value="Apply for this job"/>
-        </form>
+        {% applied job request.user as is_applied %}
+        {% if is_applied %}
+            <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+        {% else %}
+            <form action="{% url 'main_app:apply-job' job.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="job" value="{{ job.id }}">
+                <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job"/>
+            </form>
+        {% endif %}
+    {% else %}
+        <input type="button" class="btn btn-outline-white-primary" value="Please login first"/>
     {% endif %}
         
 
