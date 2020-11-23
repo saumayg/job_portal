@@ -49,6 +49,15 @@
   font-weight: 400;font-size: 50px;">
     We are RecruitX
   </p>
+
+  
+  {% if request.user.is_authenticated and request.user.role == 'employee' %}
+    <p>Welcome {{request.user.first_name}} {{request.user.last_name}} to our website</p>
+  {% elif request.user.is_authenticated and request.user.role == 'employer' %}
+    <p>Welcome {{request.user.first_name}} to our website</p>
+  {% endif %}
+    
+
   <div class='header'>
     <div style="display:flex;flex-direction:row ">
       <div style="display: flex;flex-direction: column;">

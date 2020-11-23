@@ -1,9 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
-    {% for applicant in applicants %}
-        {{applicant.job.title}}
-    {% endfor %}
+<div class="container card">
+    <h1>My Applications</h1>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tr>
+              <th>Job Title</th>
+              <th>Company</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Comment by Employee</th>
+            </tr>
+            
+            {% for applicant in applicants %}
+                <tr>
+                  <td>{{applicant.job.title}} 
+                  {% if applicant.job.filled %}
+                    (Filled)
+                  {% endif %}
+                    </td>
+                  <td>{{applicant.job.company_name}}</td>
+                  <td>{{applicant.job.type}}</td>
+                  <td>{{applicant.get_status}}</td>
+                  <td>{{applicant.comment}}</td>
+                </tr>
+            {% endfor %}
+              
+        </table>
+    </div>
+</div>
         
 {% endblock content %}

@@ -17,16 +17,16 @@
                 
                 {% for job in jobs %}
                     <tr>
-                      <td>{{job.title}}</td>
-                      <td>{{job.company_name}}</td>
-                      <td>{{job.type}}</td>
-                      <td>{{job.salary}}</td>
-                      <td>{{job.category}}</td>
-                      <td>{{job.location}}</td>
-                      <td><a href="{% url 'main_app:job_detail' job.id %}" class="btn btn-info btn-sm">Details</a></td>
+                        <td>{{job.title}} {% if job.filled %}
+                            (Filled) {% endif %}</td>
+                        <td>{{job.company_name}}</td>
+                        <td>{{job.type}}</td>
+                        <td>{{job.salary}}</td>
+                        <td>{{job.category}}</td>
+                        <td>{{job.location}}</td>
+                        <td><a href="{% url 'main_app:job_detail' job.id %}" class="btn btn-info btn-sm">Details</a></td>
                     </tr>
                 {% endfor %}
-                  
             </table>
         </div>
     </div>
