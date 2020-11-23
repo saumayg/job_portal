@@ -88,17 +88,6 @@ class ApplyJobView(CreateView):
 
 # Employer View
 
-class AddCommentView(CreateView):
-    model = Applicant
-    form_class = AddCommentForm
-
-    @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(self.request, *args, **kwargs)
-
-    def get_success_url(self):
-        return reverse_lazy("main_app:home")
-
 class JobCompanyListView(ListView):
     model = Job
     template_name = "main_app/jobs.html"

@@ -43,7 +43,6 @@ class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applicants")
     created_at = models.DateTimeField(default=timezone.now)
-    comment = models.TextField(blank=True, null=True)
     status = models.SmallIntegerField(default=1)
 
     class Meta:

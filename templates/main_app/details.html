@@ -2,17 +2,17 @@
 {% load applied %}
 
 {% block content %}
-    {{job.title}}
-    {{job.company_name}}
-    {{job.location}}
-    {{job.type}}
-    {{job.category}}
-    {{job.last_date}}
-    {{job.company_name}}
-    {{job.company_description}}
-    {{job.website}}
-    {{job.created_at}}
-    {{job.salary}}
+    <div>
+        <p>Job Title: {{job.title}}</p>
+        <p>Location: {{job.location}}</p>
+        <p>Type: {{job.get_type_display}}</p>
+        <p>Category: {{job.category}}</p>
+        <p>Last Date: {{job.last_date}}</p>
+        <p>Company: {{job.company_name}}</p>
+        <p>Company Description: {{job.company_description}}</p>
+        <p>Job Website: <a href="{{job.website}}">{{job.website}}</a></p>
+        <p>Salary provided: {{job.salary}}</p>
+    </div>
 
     
     {% if request.user.is_authenticated %}
@@ -30,9 +30,9 @@
         {% elif request.user.role == 'employer' %}
             
             {% if job.filled %}
-                <p>Already filled</p>
+                <p>Already filled by a candidate</p>
             {% else %}
-                <a href="{% url 'main_app:filled' job.id %}">Filled</a>
+                <a href="{% url 'main_app:filled' job.id %}">Mark the job as filled by a candidate</a>
             {% endif %}
                 
         {% endif %}

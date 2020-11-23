@@ -53,9 +53,9 @@
 
   
   {% if request.user.is_authenticated and request.user.role == 'employee' %}
-    
+    <p>Welcome {{request.user.first_name}} {{request.user.last_name}} to our website !</p>
   {% elif request.user.is_authenticated and request.user.role == 'employer' %}
-    <p>Welcome {{request.user.first_name}} to our website</p>
+    <p>Welcome {{request.user.first_name}} to our website !</p>
   {% endif %}
     
 
@@ -87,10 +87,7 @@
     </p>
   </div>
   <div class="how_it_work" >
-    
-
-
-
+          
     <!-- FOR CANDIDATE -->
     <p style="font-weight: 400;font-size: 30px;color: rgb(80, 83, 85)">How We Work  </p>
     <div class='work_comp'>

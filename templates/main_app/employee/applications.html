@@ -10,7 +10,7 @@
               <th>Company</th>
               <th>Type</th>
               <th>Status</th>
-              <th>Comment by Employee</th>
+              <th>Salary provided</th>
             </tr>
             
             {% for applicant in applicants %}
@@ -21,9 +21,9 @@
                   {% endif %}
                     </td>
                   <td>{{applicant.job.company_name}}</td>
-                  <td>{{applicant.job.type}}</td>
+                  <td>{{applicant.job.get_type_display}}</td>
                   <td>{{applicant.get_status}}</td>
-                  <td>{{applicant.comment}}</td>
+                  <td>{{applicant.job.salary}}</td>
                 </tr>
             {% endfor %}
               
