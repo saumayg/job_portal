@@ -30,4 +30,8 @@
             </table>
         </div>
     </div>
+    
+    {% if request.user.role == "employer" %}
+        <a href="{% url 'main_app:new_job' %}">Add a new job</a>
+    {% endif %}
 {% endblock content %}
