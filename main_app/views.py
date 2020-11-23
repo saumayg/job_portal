@@ -108,10 +108,10 @@ class ApplicantPerJobView(ListView):
 
 
 class JobCreateView(CreateView):
-    template_name = "jobs/create.html"
+    template_name = "main_app/employer/new_job.html"
     form_class = CreateJobForm
     extra_context = {"title": "Post New Job"}
-    success_url = reverse_lazy("jobs:employer-dashboard")
+    success_url = reverse_lazy("main_app:home")
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     def dispatch(self, request, *args, **kwargs):
