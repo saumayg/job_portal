@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}
+    List of jobs 
+    {% if request.user.is_authenticated and request.user.role == 'employee' %}
+      - Candidate
+    {% elif request.user.is_authenticated and request.user.role == 'employer' %}
+      - Company
+    {% endif %}
+      
+{% endblock title %}
+
 {% block content %}
 <style>
     @keyframes slider{
@@ -33,7 +43,7 @@
                         <td>{{job.title}} {% if job.filled %}
                             (Filled) {% endif %}</td>
                         <td>{{job.company_name}}</td>
-                        <td>{{job.type}}</td>
+                        <td>{{job.get_type_display}}</td>
                         <td>{{job.salary}}</td>
                         <td>{{job.category}}</td>
                         <td>{{job.location}}</td>

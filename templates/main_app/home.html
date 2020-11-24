@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Home 
+    {% if request.user.is_authenticated and request.user.role == 'employee' %}
+      - Candidate
+    {% elif request.user.is_authenticated and request.user.role == 'employer' %}
+      - Company
+    {% endif %}
+      
+{% endblock title %}
+  
 {% block content %}
   <style>
     .how_it_work{
@@ -51,17 +61,7 @@
   font-weight: 400;font-size: 50px;">
     We are RecruitX
   </p>
-
-  
-<<<<<<< HEAD
-=======
-  {% if request.user.is_authenticated and request.user.role == 'employee' %}
-    <p>Welcome {{request.user.first_name}} {{request.user.last_name}} to our website !</p>
-  {% elif request.user.is_authenticated and request.user.role == 'employer' %}
-    <p>Welcome {{request.user.first_name}} to our website !</p>
-  {% endif %}
     
->>>>>>> 4d192bc07730efb83858f1c810b7ce20a09a9166
 
   <div class='header'>
     <div style="display:flex;flex-direction:row ">
@@ -74,7 +74,7 @@
           {% if request.user.is_authenticated and request.user.role == 'employee' %}
           <p style="font-size: 23px;color: rgb(80, 83, 85);"> <b>Welcome, <br>{{request.user.first_name}} {{request.user.last_name}}</b> to RecruitX</p>
           {% elif request.user.is_authenticated and request.user.role == 'employer' %}
-          <p style="font-size: 23px;color: rgb(80, 83, 85);"> <b>Welcome, <br>{{request.user.first_name}} {{request.user.last_name}}</b> to RecruitX</p>
+          <p style="font-size: 23px;color: rgb(80, 83, 85);"> <b>Welcome, <br>{{request.user.first_name}}</b> to RecruitX</p>
           {%else%}
           <p style="font-size: 26px;color: rgb(80, 83, 85); ">
              Job Applicants <a href="{% url 'accounts:employee_register' %}" style="color: green;">Click here</a> 
@@ -92,16 +92,8 @@
       Good Luck amigos!!</dl>
     </p>
   </div>
-<<<<<<< HEAD
-  <div class="how_it_work">
-    
-
-
-
-=======
   <div class="how_it_work" >
           
->>>>>>> 4d192bc07730efb83858f1c810b7ce20a09a9166
     <!-- FOR CANDIDATE -->
     <p style="font-weight: 400;font-size: 30px;color: rgb(80, 83, 85)">How We Work  </p>
     <div class='work_comp'>

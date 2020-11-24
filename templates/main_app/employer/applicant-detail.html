@@ -1,32 +1,84 @@
 {% extends "base.html" %}
 
+{% block title %}
+  Applicant details
+{% endblock title %}
+
 {% block content %}
-    <p>First name: {{applicant.user.first_name}}</p>
-    <p>Last name: {{applicant.user.last_name}}</p>
-    <p>Gender: {{applicant.user.gender}}</p>
-    <p>Email: {{applicant.user.email}}</p>
-    <p>Contact No.: {{applicant.user.mobile}}</p>
-    <p>Applied for job at: {{applicant.created_at.astimezone}}</p>
-    <p>Last date of application: {{applicant.job.last_date.astimezone}}</p>
-    <p>Current status: {{applicant.get_status}}</p>
-    <p>Current Branch: {{applicant.user.branch}}</p>
-    <p>Current Course: {{applicant.user.course}}</p>
-    <p>CPI of Applicant: {{applicant.user.cpi}}</p>
-    <p>Job Title: {{applicant.job.title}}</p>
-    <p>Job description: {{applicant.job.description}}</p>
-    <p>Job Type: {{applicant.job.get_type_display}}</p>
-    <p>Job Category: {{applicant.job.category}}</p>
-    <p>Job Location: {{applicant.job.location}}</p>
-    <p>Accepted Salary: {{applicant.job.salary}}</p>
-    <p>Job already filled ? {{applicant.job.filled}}</p>
+    <style>
+        .ul1{
+            font-size: 38px;
+            font-weight: bold;
+        }
+        .ul2{
+            font-size: 30px;
+        }
+        .item{
+            font-size: 24px;
+            margin-left: 10px;
+            align-content: center;
+        }
+    </style>
+
+    <div style="background-color:  rgb(197, 197, 197);border-radius: 20px ;display: flex;flex-direction: column;align-items: right; width: 1300px;">
+        <div style="margin-top: 20px;">
+            <ul style="list-style-type: none;">
+                <li>
+                    <div class="ul1">Applicant Description: </div>
+                    <ul style="margin-left: 20px;">
+                        <li><span class="ul2">Name: </span><span class="item">{{applicant.user.first_name}} {{applicant.user.last_name}}</span></li>
+                        <li><span class="ul2">Gender: </span><span class="item">{{applicant.user.gender}}</span></li>
+                        <li><span class="ul2">Email: </span><span class="item">{{applicant.user.email}}</span></li>
+                        <li><span class="ul2">Contact No.: </span><span class="item">{{applicant.user.mobile}}</span></li>
+                        <li><span class="ul2">Applied for job at: </span><span class="item">{{applicant.created_at.astimezone}}</span></li>
+                        <li><span class="ul2">Current status: </span><span class="item">{{applicant.get_status}}</li>
+                        <li><span class="ul2">Current Branch: </span><span class="item">{{applicant.user.branch}}</span></li>
+                        <li><span class="ul2">Current Course: </span><span class="item">{{applicant.user.course}}</span></li>
+                        <li><span class="ul2">CPI of Applicant: </span><span class="item">{{applicant.user.cpi}}</span></li>
+                    </ul> 
+                </li>
+                <li>
+                    <div class="ul1">Job Description: </div>
+                    <ul style="margin-left: 20px;">
+                        <li><span class="ul2">Job Title: </span><span class="item">{{applicant.job.title}}</span></li>
+                        <li><span class="ul2">Job Description: </span><span class="item">{{applicant.job.description}}</span></li>
+                        <li><span class="ul2">Job Type: </span><span class="item">{{applicant.job.get_type_display}}</span></li>
+                        <li><span class="ul2">Job Category: </span><span class="item">{{applicant.job.category}}</span></li>
+                        <li><span class="ul2">Last Date to apply: </span><span class="item">{{applicant.job.last_date.astimezone}}</span></li>
+                        <li><span class="ul2">Job Location: </span><span class="item">{{applicant.job.location}}</span></li>
+                        <li><span class="ul2">Accepted Salary: </span><span class="item">{{applicant.job.salary}}</span></li>
+                        <li><span class="ul2">Job already filled ? </span><span class="item">{{applicant.job.filled}}</span></li>
+                    </ul> 
+                </li>
+            </ul>
+        </div>
+    </div>
     
     {% if applicant.status == 2 %}
-        <P>You have already accepted the applicant</P>
+        <div style="background-color:  rgb(197, 197, 197);border-radius: 20px;margin-top: 40px;">
+            <div 
+            style="color: rgb(50, 87, 50);font-size: 21px;padding :5px;padding-left: 10px;padding-right: 10px;"
+            >You have already accepted the applicant</div>
+        </div>
     {% elif applicant.status == 0 %}
-        <p>You have already rejected the applicant</p>
+        <div style="background-color:  rgb(197, 197, 197);border-radius: 20px;margin-top: 40px;">
+            <div 
+            style="color: rgb(50, 87, 50);font-size: 21px;padding :5px;padding-left: 10px;padding-right: 10px;"
+            >You have already rejected the applicant</div>
+        </div>
     {% else %}
-        <a href="{% url 'main_app:accept' applicant.id %}">Accept</a>
-        <a href="{% url 'main_app:reject' applicant.id %}">Reject</a>
+        <div>
+            <span style="background-color:  rgb(197, 197, 197);border-radius: 20px;margin-top: 40px; margin-left: 10px; margin-right: 10px;margin-bottom: 40px;padding: 10px;">
+                <a href="{% url 'main_app:accept' applicant.id %}" 
+                style="color: rgb(50, 87, 50);font-size: 31px;padding :5px;padding-left: 10px;padding-right: 10px;"
+                >Accept</a>
+            </span>
+            <span style="background-color:  rgb(197, 197, 197);border-radius: 20px;margin-top: 40px;margin-left: 10px; margin-right: 10px;margin-bottom: 40px;padding: 10px;">
+                <a href="{% url 'main_app:reject' applicant.id %}" 
+                style="color: rgb(50, 87, 50);font-size: 31px;padding :5px;padding-left: 10px;padding-right: 10px;"
+                >Reject</a>
+            </span>
+        </div>
     {% endif %}
 
 {% endblock content %}  

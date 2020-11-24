@@ -1,43 +1,89 @@
 {% extends "base.html" %}
 {% load applied %}
 
-{% block content %}
-    <div>
-        <p>Job Title: {{job.title}}</p>
-        <p>Location: {{job.location}}</p>
-        <p>Type: {{job.get_type_display}}</p>
-        <p>Category: {{job.category}}</p>
-        <p>Last Date: {{job.last_date}}</p>
-        <p>Company: {{job.company_name}}</p>
-        <p>Company Description: {{job.company_description}}</p>
-        <p>Job Website: <a href="{{job.website}}">{{job.website}}</a></p>
-        <p>Salary provided: {{job.salary}}</p>
-    </div>
+{% block title %}
+    Job Detail 
+    {% if request.user.is_authenticated and request.user.role == 'employee' %}
+      - Candidate
+    {% elif request.user.is_authenticated and request.user.role == 'employer' %}
+      - Company
+    {% endif %}
+      
+{% endblock title %}
 
+{% block content %}
+    <style>
+        .ul1{
+            font-size: 38px;
+            font-weight: bold;
+        }
+        .ul2{
+            font-size: 30px;
+        }
+        .item{
+            font-size: 24px;
+            margin-left: 10px;
+            align-content: center;
+        }
+    </style>
+
+    <div style="background-color:  rgb(197, 197, 197);border-radius: 20px ;display: flex;flex-direction: column;align-items: right; width: 1300px;">
+        <div style="margin-top: 20px;">
+            <ul style="list-style-type: none;">
+                <li>
+                    <div class="ul1">Job Description: </div>
+                    <ul style="margin-left: 20px;">
+                        <li><span class="ul2">Job Title: </span><span class="item">{{job.title}}</span></li>
+                        <li><span class="ul2">Location: </span><span class="item">{{job.location}}</span></li>
+                        <li><span class="ul2">Type: </span><span class="item">{{job.get_type_display}}</span></li>
+                        <li><span class="ul2">Category: </span><span class="item">{{job.category}}</span></li>
+                        <li><span class="ul2">Last Date to apply: </span><span class="item">{{job.last_date}}</span></li>
+                        <li><span class="ul2">Website: </span><span class="item"><a href="{{job.website}}">{{job.website}}</a></span></li>
+                        <li><span class="ul2">Salary provided: </span><span class="item">{{job.salary}}</span></li>
+                    </ul> 
+                </li>
+                <li>
+                    <div class="ul1">Company Description: </div>
+                    <ul style="margin-left: 20px;">
+                        <li><span class="ul2">Company: </span><span class="item">{{job.company_name}}</span></li>
+                        <li><span class="ul2">Company Description: </span><span class="item">{{job.company_description}}</span></li>
+                    </ul> 
+                </li>
+            </ul>
+        </div>
+    </div>
     
     {% if request.user.is_authenticated %}
         {% if request.user.role == 'employee' %}
             {% applied job request.user as is_applied %}
             {% if is_applied %}
-                <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                <input type="button" class="btn btn-outline-white-primary" value="Already applied" style="background-color: rgb(197, 197, 197); border-radius: 20px;margin-top: 40px; color: rgb(50, 87, 50);font-size: 21px;padding: 5px;padding-left: 10px;padding-right: 10px;"/>
             {% else %}
                 <form action="{% url 'main_app:apply-job' job.id %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="job" value="{{ job.id }}">
-                    <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job"/>
+                    <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job" style="background-color: rgb(197, 197, 197); border-radius: 20px;margin-top: 40px; color: rgb(50, 87, 50);font-size: 21px;padding: 5px;padding-left: 10px;padding-right: 10px;"/>
                 </form>
             {% endif %}
         {% elif request.user.role == 'employer' %}
             
             {% if job.filled %}
-                <p>Already filled by a candidate</p>
+                <div style="background-color:  rgb(197, 197, 197);border-radius: 20px;margin-top: 40px;">
+                    <div 
+                    style="color: rgb(50, 87, 50);font-size: 21px;padding :5px;padding-left: 10px;padding-right: 10px;"
+                    >Already filled by a candidate</div>
+                </div>
             {% else %}
-                <a href="{% url 'main_app:filled' job.id %}">Mark the job as filled by a candidate</a>
+                <div style="background-color:  rgb(197, 197, 197);border-radius: 20px;margin-top: 40px;animation: slider1 2s ease 0s 1 normal">
+                    <a href="{% url 'main_app:filled' job.id %}" 
+                    style="color: rgb(50, 87, 50);font-size: 21px;padding :5px;padding-left: 10px;padding-right: 10px;"
+                    >Mark the job as filled by a candidate</a>
+                </div>
             {% endif %}
                 
         {% endif %}
     {% else %}
-        <input type="button" class="btn btn-outline-white-primary" value="Please login first"/>
+        <input type="button" class="btn btn-outline-white-primary" value="Please login first" style="background-color: rgb(197, 197, 197); border-radius: 20px;margin-top: 40px; color: rgb(50, 87, 50);font-size: 21px;padding: 5px;padding-left: 10px;padding-right: 10px;"/>
     {% endif %}
         
 
