@@ -14,6 +14,9 @@ class EmployeeRegForm(UserCreationForm):
         self.fields["last_name"].label = "Last Name"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
+        self.fields["mobile"].label = "Contact No."
+        self.fields["branch"].label = "Branch"
+        self.fields["course"].label = "Course"
 
         self.fields["first_name"].widget.attrs.update(
             {
@@ -40,6 +43,26 @@ class EmployeeRegForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
+        self.fields["mobile"].widget.attrs.update(
+            {
+                "placeholder": "Contact No.",
+            }
+        )
+        self.fields["branch"].widget.attrs.update(
+            {
+                "placeholder": "Branch",
+            }
+        )
+        self.fields["course"].widget.attrs.update(
+            {
+                "placeholder": "Course(Btech/Mtech/Phd)",
+            }
+        )
+        self.fields["cpi"].widget.attrs.update(
+            {
+                "placeholder": "Enter your CPI",
+            }
+        )
 
     class Meta:
         model = User
@@ -50,6 +73,10 @@ class EmployeeRegForm(UserCreationForm):
             "password1",
             "password2",
             "gender",
+            "mobile",
+            "branch",
+            "course",
+            "cpi"
         ]
         error_messages = {
             "first_name": {
