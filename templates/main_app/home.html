@@ -36,7 +36,7 @@
       justify-content: center;
       animation:opacitier 7s ease 0s 1 normal;
       /* align-items: center; */
-      width: 90%;
+      width: 80%;
       padding-top: 10px;
       padding-right: 10px;
       padding-left: 10px;
@@ -52,13 +52,19 @@
   <div class='header'>
     <div style="display:flex;flex-direction:row ">
       <div style="display: flex;flex-direction: column;">
-        <h1 style="color: rgb(59, 56, 56);">Stop Searching</h1>
-        <h1 style="color: rgb(33, 105, 54);">Start Matching</h1>
-        <br>
-        <br>
-        <p style="font-size: 23px;color: rgb(80, 83, 85);">Give your Job Search a Momentum</p>
+        <h1 style="color: rgb(59, 56, 56);">Stop Searching</h5>
+        <h1 style="color: rgb(33, 105, 54);">Start Matching</h5>
+        <p style="font-size: 23px;color: rgb(80, 83, 85);margin-top: 40px;margin-bottom: 90px;">
+          Give your Job Search a Momentum</p>
+        <div>
+          <p style="font-size: 26px;color: rgb(80, 83, 85); ">
+             Job Applicants <a href="{% url 'accounts:employee_register' %}" style="color: green;">Click here</a> 
+            <br>Employers <a href="{% url 'accounts:employer_register' %}" style="color: green;">Click here</a>
+          </p>
+        </div>
       </div>
-      <img src='https://webassets.job.com/home_img1_opt.jpg' style="border-radius: 10px;">
+      <img src='https://webassets.job.com/home_img1_opt.jpg' 
+        style="margin-left: 30%;border-radius: 10px;">
     </div>
     <p style="font-size: 23px;color: rgb(80, 83, 85);">Tired of being treated like a number? Drowning in job listings that don’t actually fit? 
       At RecruitX.com, we’re using the best in artificial intelligence to fix all that — so you can get where you want to go, faster.

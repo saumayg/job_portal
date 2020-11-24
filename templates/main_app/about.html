@@ -4,10 +4,67 @@
   <style>
     .among_us{
       display:flex;
-      
+      flex-direction: row;
+      /* align-items: flex-end; */
+      justify-content: space-between;
     }
+    @keyframes slider{
+            0%{transform:translateX(-1000px)}
+            /* 90%{transform: translateX(10px)} */
+            100%{transform:translateX(0px)}
+        }
+    @keyframes slider1{
+        0%{transform:translateX(1000px)}
+        /* 90%{transform: translateX(10px)} */
+        100%{transform:translateX(0px)}
+    }
+    .partners{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* justify-content: space-between; */
+    }
+    @keyframes opacitier{
+            0%{opacity: 0;}
+            70%{opacity: .8;}
+            100%{opacity: 1;}
+        }
   </style>
-  <div class='among_us'>
-
+  <div style="animation:opacitier 7s ease 0s 1 normal;background-color:  rgb(197, 197, 197);border-radius: 10px ;display: flex;flex-direction: column;align-items: center;">
+    <h1 style="color: rgb(59, 56, 56);">About Us</h1>
+    <p style="font-size: 22px;width: 80%;">The True Inspiration to form such an innovative job portal Came from the legendary site Job.com.<br>
+      The Idea was Clean and Simple (actually we also do not know why we chose this),but here we are now reading this About us page 
+      written by the one and only CTO in order to seek Good marks from our TA...<br>
+      Thank You , you suucessfully wasted 2 minutes of your life..(you could have prepared a Magg!e)<br>
+      Actually the Magg!e fact is also wrong ....Magg!e cannot be prepared in 2 minutes (biggest Lie!!)<br>
+      Happy Job Hunting <br>
+      #humari_pahunch_upar_tak_hai<br>
+      #andhera_kayam_rahe<br>
+      Peace_out:))
+    </p>
+    <div class='among_us'>
+      <div class="partners" style="animation: slider 2s ease 0s 1 normal">
+        <img src="https://i.redd.it/suxlpjp707731.jpg"
+          style="height: 150px;width: 150px;border-radius: 75px;"
+        >
+        <pre style="font-size: 22px;">Saumay Gupta</pre>
+        <pre style="font-size: 12px;">Skilled Developer
+CEO,RecruitX
+IIT BHU,cse
+saumay.gupta.cse19@iybhu.ac.in</pre>
+      </div>
+      <!-- <p>...........................................</p> -->
+      <div style="margin-left: 20px;margin-right: 40px;"></div>
+      <div class="partners" style="animation: slider1 2s ease 0s 1 normal">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDIxnMfkAETRZnldRkV8UgWkFyc0YswZPKMw&usqp=CAU"
+          style="height: 150px;width: 150px;border-radius: 75px;"
+        >
+        <pre style="font-size: 22px;">Shourya Katiyar</pre>
+        <pre style="font-size: 12px;">Depressed FrontEnd Developer
+CTO,RecruitX
+IIT BHU,cse
+shourya.katiyar.cse19@itbhu.ac.in</pre>
+      </div>
+    </div>
   </div>
 {% endblock content %}
