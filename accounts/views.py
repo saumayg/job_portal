@@ -92,7 +92,7 @@ class LoginView(FormView):
 
 class LogoutView(RedirectView):
 
-    url = "/login"
+    url = "/"
 
     def get(self, request, *args, **kwargs):
         auth.logout(request)

@@ -7,9 +7,10 @@
       flex-direction: column;
       text-align: center;
       justify-content: center;
-      width: 95%;
+      width: 85%;
       border-radius: 10px;
       background-color: lightgrey  ;
+      margin-bottom: 50px;
       border-color:black;
     }
     .how_it_work p{
@@ -19,7 +20,7 @@
       display: flex;
       flex-direction: row;
       width: 100%;
-
+      /* margin-bottom: ; */
       justify-content: space-around;
     }
     .work_comp2{
@@ -49,6 +50,15 @@
   font-weight: 400;font-size: 50px;">
     We are RecruitX
   </p>
+
+  
+  {% if request.user.is_authenticated and request.user.role == 'employee' %}
+    
+  {% elif request.user.is_authenticated and request.user.role == 'employer' %}
+    <p>Welcome {{request.user.first_name}} to our website</p>
+  {% endif %}
+    
+
   <div class='header'>
     <div style="display:flex;flex-direction:row ">
       <div style="display: flex;flex-direction: column;">
@@ -57,10 +67,14 @@
         <p style="font-size: 23px;color: rgb(80, 83, 85);margin-top: 40px;margin-bottom: 90px;">
           Give your Job Search a Momentum</p>
         <div>
+          {% if request.user.is_authenticated and request.user.role == 'employee' %}
+          <p style="font-size: 23px;color: rgb(80, 83, 85);"> <b>Welcome, <br>{{request.user.first_name}} {{request.user.last_name}}</b> to RecruitX</p>
+          {%else%}
           <p style="font-size: 26px;color: rgb(80, 83, 85); ">
              Job Applicants <a href="{% url 'accounts:employee_register' %}" style="color: green;">Click here</a> 
             <br>Employers <a href="{% url 'accounts:employer_register' %}" style="color: green;">Click here</a>
           </p>
+          {%endif%}
         </div>
       </div>
       <img src='https://webassets.job.com/home_img1_opt.jpg' 
@@ -78,7 +92,7 @@
 
 
     <!-- FOR CANDIDATE -->
-    <p style="font-weight: 400;font-size: 30px;color: rgb(80, 83, 85)">How it works </p>
+    <p style="font-weight: 400;font-size: 30px;color: rgb(80, 83, 85)">How We Work  </p>
     <div class='work_comp'>
       <div class="work_comp2">
         <svg width="2em" style="color: rgb(60, 172, 60);" height="2em" viewBox="0 0 16 16" class="bi bi-patch-question" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

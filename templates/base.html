@@ -40,12 +40,11 @@ background-color: rgb(114, 118, 121);
                     <li class="nav-item"><a href="{% url 'main_app:home' %}" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="{% url 'main_app:about' %}" class="nav-link">About Us</a></li>
                     {% if request.user.is_authenticated and request.user.role == 'employer' %}
-                        <li class="nav-item"><a href="#" class="nav-link">Applicants</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Post a new Job</a></li>
+                        <li class="nav-item"><a href="{% url 'main_app:applicants' %}" class="nav-link">Applicants</a></li>
+                        <li class="nav-item"><a href="{% url 'main_app:cjobs' %}" class="nav-link">List of Jobs</a></li>
                         <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
                     {% elif request.user.is_authenticated and request.user.role == 'employee' %}
-                        <li class="nav-item"><a href="#" class="nav-link">My Applications</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Update Profile</a></li>
+                        <li class="nav-item"><a href="{% url 'main_app:applications' %}" class="nav-link">My Applications</a></li>
                         <li class="nav-item"><a href="{% url 'main_app:jobs' %}" class="nav-link">List of jobs</a></li>
                         <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
                     {% else %}

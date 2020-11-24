@@ -1,7 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% for job in jobs %}
-    {{job.title}}
-  {% endfor %}
+    <div class="container card">
+        <h1>Job Listings</h1>
+        <div class="card-body">
+            <table class="table table-hover">
+                <tr>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Type</th>
+                  <th>Salary</th>
+                  <th>Category</th>
+                  <th>Location</th>
+                  <th>Details</th>
+                </tr>
+                
+                {% for job in jobs %}
+                    <tr>
+                        <td>{{job.title}} {% if job.filled %}
+                            (Filled) {% endif %}</td>
+                        <td>{{job.company_name}}</td>
+                        <td>{{job.type}}</td>
+                        <td>{{job.salary}}</td>
+                        <td>{{job.category}}</td>
+                        <td>{{job.location}}</td>
+                        <td><a href="{% url 'main_app:job_detail' job.id %}" class="btn btn-info btn-sm">Details</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+    {% if request.user.role == "employer" %}
+        <a href="{% url 'main_app:new_job' %}">Add a new job</a>
+    {% endif %}
 {% endblock content %}

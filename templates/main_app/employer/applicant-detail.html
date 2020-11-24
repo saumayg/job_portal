@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{applicant.user.first_name}}
+    {{applicant.user.last_name}}
+    {{applicant.email}}
+    {{applicant.job.title}}
+    {{applicant.job.description}}
+    {{applicant.created_at.astimezone}}
+    {{applicant.comment}}
+    {{applicant.get_status}}
+    
+    {% if applicant.status == 2 %}
+        <P>You have already accepted the applicant</P>
+    {% elif applicant.status == 0 %}
+        <p>You have already rejected the applicant</p>
+    {% else %}
+        <a href="{% url 'main_app:accept' applicant.id %}">Accept</a>
+        <a href="{% url 'main_app:reject' applicant.id %}">Reject</a>
+    {% endif %}
+
+    <a href="#">Add a comment</a>
+
+{% endblock content %}  

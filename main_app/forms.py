@@ -33,3 +33,12 @@ class CreateJobForm(forms.ModelForm):
         if commit:
             job.save()
         return job
+
+class AddCommentForm(forms.ModelForm):
+    labels = {
+        "comment": "Add a comment"
+    }
+
+    class Meta:
+        model = Applicant
+        fields = ("comment"),

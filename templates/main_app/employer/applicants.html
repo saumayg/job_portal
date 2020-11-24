@@ -1,5 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  applicants
+<div class="container card">
+  <h1>All Applicants</h1>
+  <div class="card-body">
+      <table class="table table-hover">
+          <tr>
+            <th>Applicant Name</th>
+            <th>Job Title</th>
+            <th>Gender</th>
+            <th>Status</th>
+            <th>Applicant detail</th>
+          </tr>
+          
+          {% for applicant in applicants %}
+              <tr>
+                <td>{{applicant.user.first_name}} {{applicant.user.last_name}}</td>
+                <td>{{applicant.job.title}}</td>
+                <td>{{applicant.user.gender}}</td>
+                <td>{{applicant.get_status}}</td>
+                <td><a href="{% url 'main_app:applicant_detail' applicant.id %}"" class="btn btn-info btn-sm">Details</a></td>
+              </tr>
+          {% endfor %}
+            
+      </table>
+  </div>
+</div>
 {% endblock content %}

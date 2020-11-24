@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 
 from main_app.models import Job, Applicant
-from main_app.forms import ApplyJobForm, CreateJobForm
+from main_app.forms import *
 from main_app.decorators import *
 
 # Create your views here.
@@ -24,7 +24,7 @@ def about_view(request):
 
 # Job views
 
-class JobListView(ListView):
+class JobCandidateListView(ListView):
     model = Job
     template_name = "main_app/jobs.html"
     context_object_name = "jobs"
@@ -70,7 +70,7 @@ class ApplyJobView(CreateView):
             return HttpResponseRedirect(reverse_lazy("main_app:home"))
 
     def get_success_url(self):
-        return reverse_lazy("main_app:jobs-detail", kwargs={"id": self.kwargs["job_id"]})
+        return reverse_lazy("main_app:job_detail", kwargs={"id": self.kwargs["job_id"]})
 
     def form_valid(self, form):
         # check if user already applied
@@ -88,30 +88,57 @@ class ApplyJobView(CreateView):
 
 # Employer View
 
-class ApplicantPerJobView(ListView):
+class AddCommentView(CreateView):
     model = Applicant
-    template_name = "main_app/employer/applicants.html"
-    context_object_name = "applicants"
+    form_class = AddCommentForm
+
+    @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(self.request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy("main_app:home")
+
+class JobCompanyListView(ListView):
+    model = Job
+    template_name = "main_app/jobs.html"
+    context_object_name = "jobs"
+
+    def get_queryset(self):
+        return self.model.objects.filter(user__id=self.request.user.id)
+
+class ApplicantDetailsView(DetailView):
+    model = Applicant
+    template_name = "main_app/employer/applicant-detail.html"
+    context_object_name = "applicant"
+    pk_url_kwarg = "id"
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     @method_decorator(user_is_employer)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(self.request, *args, **kwargs)
 
-    def get_queryset(self):
-        return Applicant.objects.filter(job_id=self.kwargs["job_id"]).order_by("id")
+    def get_object(self, queryset=None):
+        obj = super(ApplicantDetailsView, self).get_object(queryset=queryset)
+        if obj is None:
+            raise Http404("Applicant doesn't exists")
+        return obj
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["job"] = Job.objects.get(id=self.kwargs["job_id"])
-        return context
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # raise error
+            raise Http404("Applicant doesn't exists")
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 class JobCreateView(CreateView):
-    template_name = "jobs/create.html"
+    template_name = "main_app/employer/new_job.html"
     form_class = CreateJobForm
     extra_context = {"title": "Post New Job"}
-    success_url = reverse_lazy("jobs:employer-dashboard")
+    success_url = reverse_lazy("main_app:home")
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     def dispatch(self, request, *args, **kwargs):
@@ -136,7 +163,7 @@ class JobCreateView(CreateView):
 
 class ApplicantsListView(ListView):
     model = Applicant
-    template_name = "jobs/employer/all-applicants.html"
+    template_name = "main_app/employer/applicants.html"
     context_object_name = "applicants"
 
     def get_queryset(self):
@@ -152,8 +179,31 @@ def filled(request, job_id=None):
         job.save()
     except IntegrityError as e:
         print(e.message)
-        return HttpResponseRedirect(reverse_lazy("jobs:employer-dashboard"))
-    return HttpResponseRedirect(reverse_lazy("jobs:employer-dashboard"))
+        return HttpResponseRedirect(reverse_lazy("main_app:home"))
+    return HttpResponseRedirect(reverse_lazy("main_app:home"))
+
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def accept(request, pk):
+    try:
+        applicant = Applicant.objects.get(pk=pk)
+        applicant.status = 2
+        applicant.save()
+    except IntegrityError as e:
+        print(e.message)
+        return HttpResponseRedirect(reverse_lazy("main_app:home"))
+    return HttpResponseRedirect(reverse_lazy('main_app:home'))
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def reject(request, pk):
+    try:
+        applicant = Applicant.objects.get(pk=pk)
+        applicant.status = 0
+        applicant.save()
+    except IntegrityError as e:
+        print(e.message)
+        return HttpResponseRedirect(reverse_lazy("main_app:home"))
+    return HttpResponseRedirect(reverse_lazy('main_app:home'))
 
 
 # Employee View
@@ -164,9 +214,8 @@ def filled(request, job_id=None):
 @method_decorator(user_is_employee, name="dispatch")
 class EmployeeMyJobsListView(ListView):
     model = Applicant
-    template_name = "jobs/employee/my-applications.html"
+    template_name = "main_app/employee/applications.html"
     context_object_name = "applicants"
-    paginate_by = 6
 
     def get_queryset(self):
         self.queryset = (
