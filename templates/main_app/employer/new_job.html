@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form id="job-main-form" method="post" action="" class="job-add-form">
+<style>
+    .row label{
+        color: rgb(184, 177, 113);
+    }
+    .row input,select,textarea,option{
+        background-color:  rgb(197, 197, 197);
+    }
+</style>
+<form id="job-main-form" method="post" action="" class="job-add-form" style='width: 50%;'>
     {% csrf_token %}
     <div class="row">
         <div class="col-lg-12 form-group">
@@ -16,8 +24,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 form-group">
-            <label for="salary">Salary(Leave empty if it's negotiable)</label>
+            <div class="col-lg-12 form-group">
+                <label for="salary">Salary(Leave empty if it's negotiable)</label>
             <input id="salary" name="salary" type="number" min="1000" class="form-control" value="{{ form.salary.value|default_if_none:"" }}">
         </div>
     </div>
@@ -63,7 +71,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h4>Company details</h4>
+            <h4 style="color: rgb(184, 177, 113);">Company details</h4>
         </div>
     </div>
     <div class="row">
@@ -97,9 +105,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-12 text-center"  style="background-color:  rgb(197, 197, 197);border-radius: 20px;">
             <hr>
-            <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-magic"></i>
+            <button  style="color: rgb(50, 87, 50);font-size: 21px;" type="submit" class="btn btn-outline-white-primary"><i class="fa fa-magic"></i>
                 Save and publish
             </button>
         </div>

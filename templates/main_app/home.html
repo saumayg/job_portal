@@ -9,6 +9,7 @@
       justify-content: center;
       width: 85%;
       border-radius: 10px;
+      animation:opacitier 7s ease 0s 1 normal;
       background-color: lightgrey  ;
       margin-bottom: 50px;
       border-color:black;
@@ -52,12 +53,6 @@
   </p>
 
   
-  {% if request.user.is_authenticated and request.user.role == 'employee' %}
-    
-  {% elif request.user.is_authenticated and request.user.role == 'employer' %}
-    <p>Welcome {{request.user.first_name}} to our website</p>
-  {% endif %}
-    
 
   <div class='header'>
     <div style="display:flex;flex-direction:row ">
@@ -68,6 +63,8 @@
           Give your Job Search a Momentum</p>
         <div>
           {% if request.user.is_authenticated and request.user.role == 'employee' %}
+          <p style="font-size: 23px;color: rgb(80, 83, 85);"> <b>Welcome, <br>{{request.user.first_name}} {{request.user.last_name}}</b> to RecruitX</p>
+          {% elif request.user.is_authenticated and request.user.role == 'employer' %}
           <p style="font-size: 23px;color: rgb(80, 83, 85);"> <b>Welcome, <br>{{request.user.first_name}} {{request.user.last_name}}</b> to RecruitX</p>
           {%else%}
           <p style="font-size: 26px;color: rgb(80, 83, 85); ">
@@ -86,7 +83,7 @@
       Good Luck amigos!!</dl>
     </p>
   </div>
-  <div class="how_it_work" >
+  <div class="how_it_work">
     
 
 
